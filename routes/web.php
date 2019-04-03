@@ -22,6 +22,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Post routes
+
 Route::prefix('post')->name('post.')->group(function () {
     Route::get('/', 'PostController@index')->name('index');
     Route::get('/{post}/{slug?}', 'PostController@show')->name('show')
@@ -40,3 +42,13 @@ Route::prefix('post')->name('post.')->group(function () {
     });
 });
 
+// Comment routes
+
+Route::post('/post/{post}/comment/create', 'CommentController@store')
+    ->name('comment.create')
+    ->middleware('auth');
+
+Route::prefix('comment')->name('comment.')->middleware(['auth', 'author.comment'])->group(function () {
+    Route::post('/{comment}/edit', 'CommentController@update')->name('update');
+    Route::get('/{comment}/delete', 'CommentController@destroy')->name('destroy');
+});

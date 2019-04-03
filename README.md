@@ -1,5 +1,5 @@
 # ExampleProject
-Example laravel project for portfolio details in readme
+Simple laravel project, fully functioning, yet implemented back-end part only
 
 # TODO
 

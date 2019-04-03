@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('poster');
-            $table->bigInteger('views');
+            $table->bigInteger('views')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

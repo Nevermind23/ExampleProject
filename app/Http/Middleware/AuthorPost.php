@@ -18,7 +18,8 @@ class AuthorPost
     {
         $user = auth()->user();
         $post = $request->route('post');
-        if($user->id == $post->user->id) {
+
+        if($user->id == $post->user_id) {
             return $next($request);
         }
 

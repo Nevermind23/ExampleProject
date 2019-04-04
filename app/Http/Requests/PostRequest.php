@@ -25,9 +25,7 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'max:191'],
-            'description' => ['required', 'string', 'min:50', 'max:50000'],
-            'poster' => ['required', 'image', 'max:'.env('MAX_FILE_SIZE')]
+            'text' => ['required', 'string', 'min:5', 'max:50000'],
         ];
     }
 }

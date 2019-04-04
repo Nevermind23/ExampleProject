@@ -51,11 +51,8 @@ class PostController extends Controller
      * @param null $slug
      * @return Post
      */
-    public function show(Post $post, $slug = null)
+    public function show(Post $post)
     {
-        if($slug != Str::slug($post->name)) {
-            return redirect(route('post.show', [$post->id, Str::slug($post->name)]));
-        }
         return $post;
     }
 

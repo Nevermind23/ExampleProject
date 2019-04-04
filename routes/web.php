@@ -26,9 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('post')->name('post.')->group(function () {
     Route::get('/', 'PostController@index')->name('index');
-    Route::get('/{post}/{slug?}', 'PostController@show')->name('show')
-        ->where('post', '[0-9]+')
-        ->where('slug', '^(?!edit$|delete$).*');
+    Route::get('/{post}', 'PostController@show')->name('show')
+        ->where('post', '[0-9]+');
 
     Route::middleware('auth')->group(function () {
         Route::get('/create', 'PostController@create')->name('create');
@@ -43,7 +42,6 @@ Route::prefix('post')->name('post.')->group(function () {
 });
 
 // Comment routes
-
 Route::post('/post/{post}/comment/create', 'CommentController@store')
     ->name('comment.create')
     ->middleware('auth');
@@ -51,4 +49,13 @@ Route::post('/post/{post}/comment/create', 'CommentController@store')
 Route::prefix('comment')->name('comment.')->middleware(['auth', 'author.comment'])->group(function () {
     Route::post('/{comment}/edit', 'CommentController@update')->name('update');
     Route::get('/{comment}/delete', 'CommentController@destroy')->name('destroy');
+});
+
+Route::prefix('conversation')->name('conversation.')->middleware('auth')->group(function () {
+    Route::get('/create/{user}', 'ConversationController@create')->name('create');
+
+    Route::middleware('author.conversation')->group(function () {
+        Route::get('/{conversation}/messages', 'ConversationController@messages')->name('messages');
+        Route::post('/{conversation}/messages', 'ConversationController@sendMessage')->name('sendMessage');
+    });
 });

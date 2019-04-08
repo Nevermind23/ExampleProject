@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class ConversationController extends Controller
 {
-    public function conversations()
+    public function index()
     {
         $user = auth()->user();
         $conversations = $user->conversations;

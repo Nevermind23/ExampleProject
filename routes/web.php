@@ -43,7 +43,7 @@ Route::prefix('post')->name('post.')->group(function () {
 
 // Comment routes
 Route::post('/post/{post}/comment/create', 'CommentController@store')
-    ->name('comment.create')
+    ->name('comment.store')
     ->middleware('auth');
 
 Route::prefix('comment')->name('comment.')->middleware(['auth', 'author.comment'])->group(function () {
@@ -52,6 +52,7 @@ Route::prefix('comment')->name('comment.')->middleware(['auth', 'author.comment'
 });
 
 Route::prefix('conversation')->name('conversation.')->middleware('auth')->group(function () {
+    Route::get('/', 'ConversationController@index')->name('index');
     Route::get('/create/{user}', 'ConversationController@create')->name('create');
 
     Route::middleware('author.conversation')->group(function () {
@@ -59,3 +60,5 @@ Route::prefix('conversation')->name('conversation.')->middleware('auth')->group(
         Route::post('/{conversation}/messages', 'ConversationController@sendMessage')->name('sendMessage');
     });
 });
+
+Route::get('/user/{user}', 'UserController@show')->name('user.show');

@@ -16,18 +16,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderByDesc('created_at')->paginate(24);
-        return $posts;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //TODO implement views
+        $posts = Post::with('user')->orderByDesc('created_at')->paginate(24);
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -53,7 +43,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return $post;
+        return view('post.show', compact('post'));
     }
 
     /**

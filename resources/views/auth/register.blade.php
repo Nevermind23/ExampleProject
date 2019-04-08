@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.main', ['title' => 'Registration Page'])
 
 @section('content')
 <div class="container">

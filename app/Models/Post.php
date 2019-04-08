@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+
+    
     protected $guarded = [];
 
     /**
@@ -21,6 +23,6 @@ class Post extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->with('user')->orderByDesc('created_at');
     }
 }

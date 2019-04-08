@@ -56,4 +56,21 @@ class User extends Authenticatable
             ->orWhere('user_2_id', $this->id)
             ->orderByDesc('updated_at');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function favourites()
+    {
+        return $this->belongsToMany(Post::class);
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function favoured($id)
+    {
+        return $this->favourites()->where('id', $id)->exists();
+    }
 }

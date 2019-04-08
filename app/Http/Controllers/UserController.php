@@ -9,6 +9,7 @@ class UserController extends Controller
 {
     public function show(User $user)
     {
-        return $user;
+        $posts = $user->posts()->with('comments')->paginate(24);
+        return view('profile', compact('user', 'posts'));
     }
 }

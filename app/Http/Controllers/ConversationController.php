@@ -14,13 +14,13 @@ class ConversationController extends Controller
         $user = auth()->user();
         $conversations = $user->conversations;
 
-        return $conversations;
+        return view('conversation.index', compact('conversations'));
     }
 
     public function messages(Conversation $conversation)
     {
-        $messages = $conversation->messages;
-        return $messages;
+        $messages = $conversation->messages()->orderByDesc('updated_at')->paginate(24);
+        return view('conversation.messages', compact('conversation', 'messages'));
     }
 
     public function sendMessage(MessageRequest $request, Conversation $conversation)

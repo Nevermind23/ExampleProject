@@ -228,7 +228,7 @@
                 </div>
                 <div class="inbox_chat">
                     @foreach(auth()->user()->conversations()->with('messages')->get() as $conversationItem)
-                        <div class="chat_list"
+                        <div class="chat_list {{$conversationItem->id == $conversation->id ? 'active_chat' : ''}}"
                              style="cursor: pointer"
                              onclick="window.location.href='{{route('conversation.messages', [$conversationItem->id])}}'">
                             <div class="chat_people">
@@ -250,8 +250,35 @@
             </div>
             <div class="mesgs">
                 <div class="msg_history">
+                    @foreach($messages as $message)
+                        @if($message->user_id != auth()->user()->id)
+                            <div class="incoming_msg">
+                                <a href="{{route('user.show', [$conversationItem->secondUser->id])}}" class="incoming_msg_img"><img src="{{$conversationItem->secondUser->avatar}}"
+                                                                   alt="{{$conversation->secondUser->name}}"></a>
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <p>{{$message->text}}</p>
+                                        <span class="time_date">{{$message->created_at->diffForHumans()}}</span></div>
+                                </div>
+                            </div>
+                        @else
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                    <p>{{$message->text}}</p>
+                                    <span class="time_date">{{$message->created_at->diffForHumans()}}</span></div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-
+                <div class="type_msg">
+                    <form action="{{route('conversation.messages', [$conversation->id])}}" method="post"
+                          class="input_msg_write">
+                        @csrf
+                        <input type="text" name="text" class="write_msg" placeholder="Type a message"/>
+                        <button class="msg_send_btn" type="submit"><i class="fas fa-paper-plane"
+                                                                      aria-hidden="true"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
 

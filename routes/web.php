@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    if(AUth::check()) {
+        return redirect(route('post.index'));
+    }
     return view('welcome');
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 // Post routes
 

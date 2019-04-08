@@ -7,7 +7,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
         <i class="fab fa-laravel"></i> Laravel
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"

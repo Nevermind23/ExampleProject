@@ -15,4 +15,16 @@ class Conversation extends Model
     {
         return $this->hasMany(Message::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function secondUser()
+    {
+        if(auth()->user()->id == $this->user_1_id) {
+            return $this->belongsTo(User::class, 'user_2_id');
+        } else {
+            return $this->belongsTo(User::class, 'user_1_id');
+        }
+    }
 }

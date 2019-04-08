@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -44,17 +42,6 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('post.show', compact('post'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Post $post
-     * @return void
-     */
-    public function edit(Post $post)
-    {
-        //TODO implement views
     }
 
     /**
